@@ -33,7 +33,7 @@ const GoogleMapView = () => {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
-        region={mapRegion}
+        // region={mapRegion}
       >
         <Marker title="you" coordinate={mapRegion} />
       </MapView>
