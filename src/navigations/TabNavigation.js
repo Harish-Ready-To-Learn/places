@@ -6,6 +6,7 @@ import Search from "../screens/Search";
 import Fav from "../screens/Fav";
 import Profile from "../screens/Profile";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import HomeNavigation from "./HomeNavigation";
 
 const TabNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -18,7 +19,7 @@ const TabNavigation = () => {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeNavigation}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (

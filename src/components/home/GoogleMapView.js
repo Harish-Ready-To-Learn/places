@@ -2,11 +2,11 @@ import { Dimensions, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { UserLocationContext } from "../../context/UserLocationContext";
+import PlaceMarker from "./PlaceMarker";
 
 const GoogleMapView = ({ placeList }) => {
   const [mapRegion, setMapRegion] = useState();
   const { location, setLocation } = useContext(UserLocationContext);
-  console.log("LOCATION In MapView= ", location);
   useEffect(() => {
     if (location) {
       setMapRegion({
@@ -28,29 +28,22 @@ const GoogleMapView = ({ placeList }) => {
       >
         Top Nearby Places
       </Text>
-
-      <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation={true}
-        region={mapRegion}
-      >
-        <Marker title="you" coordinate={mapRegion} />
-        {placeList.map((item, id) => {
-          console.log("MARKER", item);
-          return (
-            <Marker
-              title={item.name}
-              coordinate={{
-                latitude: item.geometry.location.lat,
-                longitude: item.geometry.location.lng,
-                latitudeDelta: 0.02,
-                longitudeDelta: 0.0421,
-              }}
-            />
-          );
-        })}
-      </MapView>
+      <>
+        {location ? (
+          <MapView
+            style={styles.map}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            region={mapRegion}
+          >
+            <Marker title="you" coordinate={mapRegion} />
+            {placeList.map(
+              (item, index) =>
+                index <= 4 && <PlaceMarker item={item} key={index} />
+            )}
+          </MapView>
+        ) : null}
+      </>
     </View>
   );
 };
