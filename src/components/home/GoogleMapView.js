@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { UserLocationContext } from "../../context/UserLocationContext";
 
-const GoogleMapView = () => {
+const GoogleMapView = ({ placeList }) => {
   const [mapRegion, setMapRegion] = useState();
   const { location, setLocation } = useContext(UserLocationContext);
   console.log("LOCATION In MapView= ", location);
@@ -12,7 +12,7 @@ const GoogleMapView = () => {
       setMapRegion({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        latitudeDelta: 0.03,
+        latitudeDelta: 0.02,
         longitudeDelta: 0.0421,
       });
     }
@@ -33,9 +33,23 @@ const GoogleMapView = () => {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
-        // region={mapRegion}
+        region={mapRegion}
       >
         <Marker title="you" coordinate={mapRegion} />
+        {placeList.map((item, id) => {
+          console.log("MARKER", item);
+          return (
+            <Marker
+              title={item.name}
+              coordinate={{
+                latitude: item.geometry.location.lat,
+                longitude: item.geometry.location.lng,
+                latitudeDelta: 0.02,
+                longitudeDelta: 0.0421,
+              }}
+            />
+          );
+        })}
       </MapView>
     </View>
   );

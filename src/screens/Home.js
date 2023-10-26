@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import Header from "../components/home/Header";
 import GoogleMapView from "../components/home/GoogleMapView";
@@ -15,24 +15,26 @@ const Home = () => {
       GetNearBySearchPlace("restaurant");
     }
   }, [location]);
-  const GetNearBySearchPlace = () => {
+  const GetNearBySearchPlace = (value) => {
     GlobalSearch.nearByPlace(
       location.coords.latitude,
       location.coords.longitude,
-      "restaurant"
+      value
     ).then((res) => {
-      console.log("NEARBY PLACES", res.data.results);
+      console.log("NEARBY PLACES", res.data.results, "\n", value);
       setPlaceList(res.data.results);
     });
   };
 
   return (
-    <View style={{ padding: 20 }}>
+    <ScrollView style={{ padding: 20 }}>
       <Header />
-      <GoogleMapView />
-      <CategoryList />
+      <GoogleMapView placeList={placeList} />
+      <CategoryList
+        setSelectedCategory={(value) => GetNearBySearchPlace(value)}
+      />
       {placeList ? <PlaceList placeList={placeList} /> : null}
-    </View>
+    </ScrollView>
   );
 };
 

@@ -8,10 +8,10 @@ import {
   TouchableHighlightBase,
   TouchableHighlightComponent,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import CategoryItem from "./CategoryItem";
 
-const CategoryList = () => {
+const CategoryList = ({ setSelectedCategory }) => {
   const categoryList = [
     {
       id: 1,
@@ -42,7 +42,7 @@ const CategoryList = () => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => console.log(item.name)}>
+          <TouchableOpacity onPress={() => setSelectedCategory(item.value)}>
             <CategoryItem category={item} />
           </TouchableOpacity>
         )}
