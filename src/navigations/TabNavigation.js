@@ -37,7 +37,7 @@ const TabNavigation = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Fav"
         component={Fav}
         options={{
@@ -56,7 +56,7 @@ const TabNavigation = () => {
             <FontAwesome name="user-circle-o" color={color} size={size} />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
